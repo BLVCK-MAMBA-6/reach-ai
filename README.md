@@ -8,7 +8,7 @@
   <strong>Discover what is possible. Understand your fit. Take the next step.</strong>
 </p>
 
-![Reach AI progress](docs/assets/reach-ai-progress.gif)
+![Reach AI progress](docs/assets/reach-ai-progress.svg)
 
 <p>
   <img alt="Hackathon" src="https://img.shields.io/badge/Nebius%20×%20NVIDIA-Global%20AI%20Hackathon-76B900?style=for-the-badge&logo=nvidia&logoColor=white">

@@ -73,10 +73,10 @@ Reach AI is MVP-complete when a new user can:
 - [x] Add the MIT License
 - [x] Create a rich project README
 - [ ] Upload the README and animated asset to GitHub
-- [ ] Add `.gitignore` for Python, Node.js, environment files and local databases
-- [ ] Add `CONTRIBUTING.md`
-- [ ] Add `SECURITY.md`
-- [ ] Add this `roadmap.md` to the repository
+- [x] Add `.gitignore` for Python, Node.js, environment files and local databases
+- [x] Add `CONTRIBUTING.md`
+- [x] Add `SECURITY.md`
+- [x] Add this `roadmap.md` to the repository
 
 ## Accounts and access
 
