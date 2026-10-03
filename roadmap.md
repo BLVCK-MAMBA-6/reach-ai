@@ -72,7 +72,7 @@ Reach AI is MVP-complete when a new user can:
 - [x] Make the repository public
 - [x] Add the MIT License
 - [x] Create a rich project README
-- [ ] Upload the README and animated asset to GitHub
+- [x] Upload the README and animated asset to GitHub
 - [x] Add `.gitignore` for Python, Node.js, environment files and local databases
 - [x] Add `CONTRIBUTING.md`
 - [x] Add `SECURITY.md`
@@ -81,7 +81,8 @@ Reach AI is MVP-complete when a new user can:
 ## Accounts and access
 
 - [ ] Confirm Devpost registration
-- [ ] Join the Nebius Builder Program
+- [x] Submit the Nebius AI Builder Program application
+- [ ] Receive Nebius AI Builder Program approval
 - [ ] Obtain Nebius Token Factory credentials
 - [ ] Confirm available Nemotron model identifiers
 - [ ] Obtain Tavily API credentials
