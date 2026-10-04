@@ -1,0 +1,601 @@
+{
+  "$defs": {
+    "ApplicationStatus": {
+      "enum": [
+        "upcoming",
+        "open",
+        "closed",
+        "rolling",
+        "unknown"
+      ],
+      "title": "ApplicationStatus",
+      "type": "string"
+    },
+    "Conflict": {
+      "additionalProperties": false,
+      "description": "Two or more incompatible source claims requiring review.",
+      "properties": {
+        "field": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "field",
+        "description",
+        "evidence_ids"
+      ],
+      "title": "Conflict",
+      "type": "object"
+    },
+    "Deadline": {
+      "additionalProperties": false,
+      "description": "Deadline components without silently inventing missing precision.",
+      "properties": {
+        "date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date"
+        },
+        "time": {
+          "anyOf": [
+            {
+              "format": "time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time"
+        },
+        "timezone": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timezone"
+        },
+        "original_text": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original Text"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "confidence"
+      ],
+      "title": "Deadline",
+      "type": "object"
+    },
+    "EvidenceKind": {
+      "enum": [
+        "official_page",
+        "official_rules",
+        "secondary_source",
+        "email",
+        "user_provided"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    },
+    "EvidenceSpan": {
+      "additionalProperties": false,
+      "description": "A verbatim source span supporting an extracted claim.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "source_title": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Title"
+        },
+        "quote": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "quote"
+      ],
+      "title": "EvidenceSpan",
+      "type": "object"
+    },
+    "Funding": {
+      "additionalProperties": false,
+      "description": "Funding details exactly as stated by the source.",
+      "properties": {
+        "available": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Available"
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Amount"
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "maxLength": 20,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "coverage": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Coverage",
+          "type": "array"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "title": "Funding",
+      "type": "object"
+    },
+    "MissingField": {
+      "enum": [
+        "title",
+        "organization",
+        "official_url",
+        "application_status",
+        "deadline.date",
+        "deadline.time",
+        "deadline.timezone",
+        "eligibility",
+        "funding",
+        "required_documents",
+        "selection_criteria"
+      ],
+      "title": "MissingField",
+      "type": "string"
+    },
+    "ModelRunMetadata": {
+      "additionalProperties": false,
+      "description": "Trace information for the extraction call.",
+      "properties": {
+        "provider": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "prompt_version": {
+          "maxLength": 50,
+          "minLength": 1,
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Tokens"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "prompt_version",
+        "started_at",
+        "completed_at"
+      ],
+      "title": "ModelRunMetadata",
+      "type": "object"
+    },
+    "OpportunityType": {
+      "enum": [
+        "fellowship",
+        "grant",
+        "internship",
+        "research_program",
+        "hackathon",
+        "scholarship",
+        "accelerator",
+        "competition",
+        "job",
+        "other"
+      ],
+      "title": "OpportunityType",
+      "type": "string"
+    },
+    "Requirement": {
+      "additionalProperties": false,
+      "description": "A hard or soft opportunity requirement supported by evidence.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/RequirementCategory"
+        },
+        "strength": {
+          "$ref": "#/$defs/RequirementStrength"
+        },
+        "description": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "operator": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Operator"
+        },
+        "expected_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Value"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "strength",
+        "description",
+        "evidence_ids"
+      ],
+      "title": "Requirement",
+      "type": "object"
+    },
+    "RequirementCategory": {
+      "enum": [
+        "age",
+        "citizenship",
+        "residency",
+        "education",
+        "experience",
+        "location",
+        "language",
+        "affiliation",
+        "skill",
+        "document",
+        "other"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    },
+    "RequirementStrength": {
+      "enum": [
+        "hard",
+        "soft"
+      ],
+      "title": "RequirementStrength",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned extraction result before canonical database insertion.",
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "title_evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Title Evidence Ids",
+      "type": "array"
+    },
+    "organization": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Organization",
+      "type": "string"
+    },
+    "organization_evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Organization Evidence Ids",
+      "type": "array"
+    },
+    "opportunity_type": {
+      "$ref": "#/$defs/OpportunityType"
+    },
+    "official_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Official Url"
+    },
+    "application_status": {
+      "$ref": "#/$defs/ApplicationStatus"
+    },
+    "deadline": {
+      "$ref": "#/$defs/Deadline"
+    },
+    "requirements": {
+      "items": {
+        "$ref": "#/$defs/Requirement"
+      },
+      "title": "Requirements",
+      "type": "array"
+    },
+    "funding": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Funding"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "benefits": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Benefits",
+      "type": "array"
+    },
+    "required_documents": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Documents",
+      "type": "array"
+    },
+    "selection_criteria": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Selection Criteria",
+      "type": "array"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceSpan"
+      },
+      "minItems": 1,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "missing_information": {
+      "items": {
+        "$ref": "#/$defs/MissingField"
+      },
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "conflicts": {
+      "items": {
+        "$ref": "#/$defs/Conflict"
+      },
+      "title": "Conflicts",
+      "type": "array"
+    },
+    "model_run": {
+      "$ref": "#/$defs/ModelRunMetadata"
+    },
+    "extracted_at": {
+      "format": "date-time",
+      "title": "Extracted At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "title_evidence_ids",
+    "organization",
+    "organization_evidence_ids",
+    "opportunity_type",
+    "application_status",
+    "deadline",
+    "evidence",
+    "model_run"
+  ],
+  "title": "OpportunityExtraction",
+  "type": "object"
+}

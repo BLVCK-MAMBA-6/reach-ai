@@ -107,17 +107,17 @@ Reach AI is MVP-complete when a new user can:
 
 ## Opportunity schema
 
-- [ ] Define the Pydantic `OpportunityExtraction` model
-- [ ] Include title, organization, type and official URL
-- [ ] Represent deadline date, time and timezone separately
-- [ ] Represent application status explicitly
-- [ ] Represent hard and soft requirements separately
-- [ ] Include funding and benefits
-- [ ] Include required documents
-- [ ] Include selection criteria
-- [ ] Include source-evidence spans
-- [ ] Include missing-information and conflict arrays
-- [ ] Version the schema
+- [x] Define the Pydantic `OpportunityExtraction` model
+- [x] Include title, organization, type and official URL
+- [x] Represent deadline date, time and timezone separately
+- [x] Represent application status explicitly
+- [x] Represent hard and soft requirements separately
+- [x] Include funding and benefits
+- [x] Include required documents
+- [x] Include selection criteria
+- [x] Include source-evidence spans
+- [x] Include missing-information and conflict arrays
+- [x] Version the schema
 
 ## Extraction prompt
 
@@ -137,7 +137,7 @@ Reach AI is MVP-complete when a new user can:
 - [ ] Include one grant
 - [ ] Include one internship
 - [ ] Include one research program
-- [ ] Include one hackathon
+- [x] Include one hackathon
 - [ ] Include one missing-timezone case
 - [ ] Include one conflicting-deadline case
 - [ ] Include one expired posting

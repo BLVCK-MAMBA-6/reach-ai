@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "title": "Global Responsible AI Challenge",
+  "title_evidence_ids": ["ev_title"],
+  "organization": "Example Foundation",
+  "organization_evidence_ids": ["ev_org"],
+  "opportunity_type": "hackathon",
+  "official_url": "https://example.org/challenge",
+  "application_status": "open",
+  "deadline": {
+    "date": "2026-10-30",
+    "time": "18:00:00",
+    "timezone": "Africa/Lagos",
+    "original_text": "October 30, 2026 at 6:00 p.m. GMT+1",
+    "confidence": 1.0,
+    "evidence_ids": ["ev_deadline"]
+  },
+  "requirements": [
+    {
+      "id": "req_age",
+      "category": "age",
+      "strength": "hard",
+      "description": "Participants must be above the legal age of majority.",
+      "operator": "legal_age_of_majority",
+      "expected_value": true,
+      "evidence_ids": ["ev_age"]
+    }
+  ],
+  "funding": {
+    "available": true,
+    "amount": "$20,000 grand prize",
+    "currency": "USD",
+    "coverage": ["cash prize"],
+    "evidence_ids": ["ev_funding"]
+  },
+  "benefits": ["Cash prizes", "Technical recognition"],
+  "required_documents": ["Public code repository", "Demo video"],
+  "selection_criteria": ["Technical implementation", "Potential impact"],
+  "evidence": [
+    {
+      "id": "ev_title",
+      "kind": "official_page",
+      "source_url": "https://example.org/challenge",
+      "source_title": "Challenge overview",
+      "quote": "Global Responsible AI Challenge"
+    },
+    {
+      "id": "ev_org",
+      "kind": "official_page",
+      "source_url": "https://example.org/challenge",
+      "source_title": "Challenge overview",
+      "quote": "Hosted by Example Foundation"
+    },
+    {
+      "id": "ev_deadline",
+      "kind": "official_rules",
+      "source_url": "https://example.org/challenge/rules",
+      "source_title": "Official rules",
+      "quote": "Deadline: October 30, 2026 at 6:00 p.m. GMT+1"
+    },
+    {
+      "id": "ev_age",
+      "kind": "official_rules",
+      "source_url": "https://example.org/challenge/rules",
+      "source_title": "Official rules",
+      "quote": "Participants must be above the legal age of majority."
+    },
+    {
+      "id": "ev_funding",
+      "kind": "official_rules",
+      "source_url": "https://example.org/challenge/rules",
+      "source_title": "Official rules",
+      "quote": "Grand prize: $20,000 in cash."
+    }
+  ],
+  "missing_information": [],
+  "conflicts": [],
+  "model_run": {
+    "provider": "mock",
+    "model": "mock-nemotron-nano",
+    "prompt_version": "opportunity-extraction-v1",
+    "started_at": "2026-10-03T17:00:00Z",
+    "completed_at": "2026-10-03T17:00:01Z",
+    "input_tokens": 500,
+    "output_tokens": 700
+  },
+  "extracted_at": "2026-10-03T17:00:01Z"
+}
